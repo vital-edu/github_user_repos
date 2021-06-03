@@ -21,6 +21,7 @@ dependencies:
   flash: ^2.0.0
   flutter_secure_storage: ^4.2.0
   freezed_annotation: ^0.14.2
+  oauth2: ^2.0.0
   webview_flutter: ^2.0.8
 
 dev_dependencies:
