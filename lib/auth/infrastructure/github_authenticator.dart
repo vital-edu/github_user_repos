@@ -8,6 +8,7 @@ import 'package:user_repo/auth/domain/auth_failure.dart';
 import 'package:user_repo/auth/infrastructure/credentials_storage/credentials_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:user_repo/core/shared/encoders.dart';
+import 'package:user_repo/core/infrastructure/dio_extensions.dart';
 
 class GithubOAuthHttpClient extends http.BaseClient {
   final httpClient = http.Client();
@@ -111,10 +112,7 @@ class GithubAuthenticator {
           ),
         );
       } on DioError catch (error) {
-        if (error.type == DioErrorType.other &&
-            error.error is SocketException) {
-          print('token not revovek');
-        } else {
+        if (!error.isConnectionError) {
           rethrow;
         }
       }
