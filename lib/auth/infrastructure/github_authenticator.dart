@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:fpdart/fpdart.dart';
@@ -95,18 +97,28 @@ class GithubAuthenticator {
         stringToBase64Encoder.encode('$clientId:$clientSecret');
 
     try {
-      _dioClient.deleteUri<String>(
-        revocationTokenEndpoint,
-        data: {
-          'access_token': accessToken,
-        },
-        options: Options(
-          headers: <String, String>{
-            'Authorization': 'bearer $userAndPassword',
-            'Accept': 'application/vnd.github.v3+json',
+      try {
+        _dioClient.deleteUri<String>(
+          revocationTokenEndpoint,
+          data: {
+            'access_token': accessToken,
           },
-        ),
-      );
+          options: Options(
+            headers: <String, String>{
+              'Authorization': 'bearer $userAndPassword',
+              'Accept': 'application/vnd.github.v3+json',
+            },
+          ),
+        );
+      } on DioError catch (error) {
+        if (error.type == DioErrorType.other &&
+            error.error is SocketException) {
+          print('token not revovek');
+        } else {
+          rethrow;
+        }
+      }
+
       await _credentialsStorage.clear();
       return right(unit);
     } on PlatformException {
