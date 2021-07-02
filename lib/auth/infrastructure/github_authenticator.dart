@@ -1,6 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:oauth2/oauth2.dart';
 import 'package:user_repo/auth/domain/auth_failure.dart';
 import 'package:user_repo/auth/infrastructure/credentials_storage/credentials_storage.dart';
