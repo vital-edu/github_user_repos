@@ -13,6 +13,8 @@ class AuthState with _$AuthState {
   const factory AuthState.failure(AuthFailure failure) = _Failure;
 }
 
+typedef AuthUriCallback = Future<Uri> Function({Uri authorizationUrl});
+
 class AuthNotifier extends StateNotifier<AuthState> {
   final GithubAuthenticator _authenticator;
 
@@ -23,4 +25,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
         ? const AuthState.authenticated()
         : const AuthState.unauthenticated();
   }
+
+  Future<void> signIn(AuthUriCallback authorizationCallback) async {}
 }
