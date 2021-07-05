@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:fpdart/fpdart.dart';
@@ -46,7 +44,8 @@ class GithubAuthenticator {
       final credentials = await _credentialsStorage.read();
       if (credentials != null) {
         if (credentials.canRefresh && credentials.isExpired) {
-          // TODO: get new token
+          final result = await refresh(credentials: credentials);
+          return result.fold((_) => null, (credentials) => credentials);
         }
       }
 
@@ -121,6 +120,28 @@ class GithubAuthenticator {
       return right(unit);
     } on PlatformException {
       return left<AuthFailure, Unit>(const AuthFailure.server());
+    }
+  }
+
+  Future<Either<AuthFailure, Credentials>> refresh({
+    required Credentials credentials,
+  }) async {
+    try {
+      final newCredentials = await credentials.refresh(
+        identifier: clientId,
+        secret: clientSecret,
+        httpClient: GithubOAuthHttpClient(),
+      );
+      await _credentialsStorage.save(newCredentials);
+      return right(newCredentials);
+    } on PlatformException {
+      return left(const AuthFailure.storage());
+    } on FormatException {
+      return left(const AuthFailure.server());
+    } on AuthorizationException catch (exception) {
+      return left(
+        AuthFailure.server('${exception.error}: ${exception.description}'),
+      );
     }
   }
 }
