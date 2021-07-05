@@ -26,5 +26,22 @@ class AuthNotifier extends StateNotifier<AuthState> {
         : const AuthState.unauthenticated();
   }
 
-  Future<void> signIn(AuthUriCallback authorizationCallback) async {}
+  Future<void> signIn(AuthUriCallback authorizationCallback) async {
+    final grant = _authenticator.createGrant();
+    final authorizationUrl = _authenticator.getAuthorizationUrl(grant);
+    final authorizationResponse = await authorizationCallback(
+      authorizationUrl: authorizationUrl,
+    );
+
+    final result = await _authenticator.handleAuthorizationResponse(
+      grant,
+      authorizationResponse.queryParameters,
+    );
+    state = result.fold(
+      (failure) => AuthState.failure(failure),
+      (_) => const AuthState.authenticated(),
+    );
+
+    grant.close();
+  }
 }
