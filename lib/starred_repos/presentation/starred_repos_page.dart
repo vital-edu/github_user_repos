@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StarredRepoPages extends StatelessWidget {
-  const StarredRepoPages({Key? key}) : super(key: key);
+class StarredReposPage extends StatelessWidget {
+  const StarredReposPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
