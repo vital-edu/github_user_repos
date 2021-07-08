@@ -1,11 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'dart:async';
 
-class SignInPage extends StatelessWidget {
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:user_repo/auth/shared/providers.dart';
+import 'package:user_repo/core/presentation/router/app_router.gr.dart';
+
+class SignInPage extends ConsumerWidget {
   const SignInPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -28,7 +34,22 @@ class SignInPage extends StatelessWidget {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.green),
                     ),
-                    onPressed: () {},
+                    onPressed: () => ref
+                        .read(authNotifierProvider.notifier)
+                        .signIn(({required Uri authorizationUrl}) {
+                      final Completer<Uri> completer = Completer();
+                      AutoRouter.of(context).push(
+                        AuthorizationRoute(
+                          authorizationUrl: authorizationUrl,
+                          onAuthorizationCodeRedirectAttempt: (
+                            Uri redirectUrl,
+                          ) =>
+                              completer.complete(redirectUrl),
+                        ),
+                      );
+
+                      return completer.future;
+                    }),
                     child: const Text('Sign In'),
                   ),
                 ],
