@@ -229,14 +229,14 @@ packages:
       name: flutter_hooks
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.0"
+    version: "0.18.0"
   flutter_riverpod:
     dependency: transitive
     description:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0+3"
+    version: "1.0.0-dev.5"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -294,12 +294,10 @@ packages:
   hooks_riverpod:
     dependency: "direct main"
     description:
-      path: "packages/hooks_riverpod"
-      ref: "147be70df096015af0633456a951d8f2f9c66dc9"
-      resolved-ref: "147be70df096015af0633456a951d8f2f9c66dc9"
-      url: "https://github.com/rrousselGit/river_pod.git"
-    source: git
-    version: "0.14.0+2"
+      name: hooks_riverpod
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0-dev.5"
   http:
     dependency: transitive
     description:
@@ -432,7 +430,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.0+3"
+    version: "1.0.0-dev.5"
   shelf:
     dependency: transitive
     description:
