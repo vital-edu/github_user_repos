@@ -19,6 +19,10 @@ class GithubOAuthHttpClient extends http.BaseClient {
 }
 
 class GithubAuthenticator {
+  static const clientId = '4ef5c6c9802322402342';
+  static const clientSecret = '91803395c711651d3529e260b16b4a7865c1dc37';
+  static const scopes = ['read:user', 'repo'];
+
   final CredentialsStorage _credentialsStorage;
   final Dio _dioClient;
 
@@ -29,9 +33,6 @@ class GithubAuthenticator {
   static final revocationTokenEndpoint =
       Uri.parse('https://api.github.com/applications/$clientId/token');
   static final redirectUrl = Uri.parse('http://localhost:3000/callback');
-  static const clientId = '4ef5c6c9802322402342';
-  static const clientSecret = '91803395c711651d3529e260b16b4a7865c1dc37';
-  static const scopes = ['read:user', 'repo'];
 
   GithubAuthenticator(
     CredentialsStorage credentialsStorage,
@@ -105,7 +106,7 @@ class GithubAuthenticator {
           },
           options: Options(
             headers: <String, String>{
-              'Authorization': 'bearer $userAndPassword',
+              'Authorization': 'basic $userAndPassword',
               'Accept': 'application/vnd.github.v3+json',
             },
           ),
