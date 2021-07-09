@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:user_repo/auth/infrastructure/github_authenticator.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class AuthorizationPage extends StatelessWidget {
+class AuthorizationPage extends StatefulWidget {
   final Uri authorizationUrl;
   final Function(Uri redirectedUrl) onAuthorizationCodeRedirectAttempt;
 
@@ -11,7 +13,31 @@ class AuthorizationPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _AuthorizationPageState createState() => _AuthorizationPageState();
+}
+
+class _AuthorizationPageState extends State<AuthorizationPage> {
+  @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(
+        child: WebView(
+          javascriptMode: JavascriptMode.unrestricted,
+          initialUrl: widget.authorizationUrl.toString(),
+          onWebViewCreated: (controller) {
+            controller.clearCache();
+            CookieManager().clearCookies();
+          },
+          navigationDelegate: (request) {
+            if (request.url
+                .startsWith(GithubAuthenticator.redirectUrl.toString())) {
+              widget.onAuthorizationCodeRedirectAttempt(Uri.parse(request.url));
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      ),
+    );
   }
 }
