@@ -1,2 +1,41 @@
+@baseUrl = https://api.github.com
+@token = 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
+@acceptHeader = application/vnd.github.v3.html+json
+
 GET https://api.github.com/user/starred
-Authorization: Bearer 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
+    ?page=1
+Authorization: Bearer {{token}}
+Accept: {{acceptHeader}}
+
+###
+
+GET {{baseUrl}}/search/repositories
+    ?q=flutter
+    &page=1
+Authorization: Bearer {{token}}
+Accept: {{acceptHeader}}
+
+###
+
+GET {{baseUrl}}/repos/flutter/flutter/readme
+Authorization: Bearer {{token}}
+Accept: {{acceptHeader}}
+
+###
+
+PUT {{baseUrl}}/user/starred/vital-edu/MyShoppingList
+Authorization: bearer {{token}}
+Content-Length: 0
+Accept: {{acceptHeader}}
+
+###
+
+DELETE {{baseUrl}}/user/starred/vital-edu/MyShoppingList
+Authorization: bearer {{token}}
+Accept: {{acceptHeader}}
+
+###
+
+GET {{baseUrl}}/user/starred/vital-edu/MyShoppingList
+Authorization: bearer {{token}}
+Accept: {{acceptHeader}}
