@@ -17,6 +17,7 @@ dependencies:
   fpdart: ^0.0.6
   freezed_annotation: ^0.14.2
   hooks_riverpod: 1.0.0-dev.5
+  json_annotation: ^4.0.1
   material_design_icons_flutter: ^5.0.5955-rc.1
   oauth2: ^2.0.0
   webview_flutter: ^2.0.8
@@ -27,6 +28,7 @@ dev_dependencies:
   auto_route_generator: ^2.1.0
   build_runner: ^2.0.4
   freezed: ^0.14.2
+  json_serializable: ^4.1.4
   lint: ^1.5.3
 
 flutter:
