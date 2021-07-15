@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:user_repo/github/core/domain/user.dart';
 
 part 'user_dto.freezed.dart';
 part 'user_dto.g.dart';
 
-@JsonSerializable()
 @freezed
 class UserDTO with _$UserDTO {
   const factory UserDTO({
@@ -13,4 +13,9 @@ class UserDTO with _$UserDTO {
 
   factory UserDTO.fromJson(Map<String, dynamic> json) =>
       _$UserDTOFromJson(json);
+
+  factory UserDTO.fromDomain(User user) =>
+      UserDTO(name: user.name, avatarUrl: user.avatarUrl);
+
+  User toDomain() => User(name: name, avatarUrl: avatarUrl);
 }
