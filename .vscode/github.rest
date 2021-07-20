@@ -6,6 +6,7 @@ GET https://api.github.com/user/starred
     ?page=1
 Authorization: Bearer {{token}}
 Accept: {{acceptHeader}}
+If-None-Match: W/"2372e5bcfe24806e9647014c28e56d1dccde6885d698b059fc42f3cae9ad642d"
 
 ###
 
