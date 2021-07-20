@@ -7,11 +7,11 @@ class SembastDatabase {
   late Database _instance;
   Database get instance => _instance;
 
-  bool hasBeenInitialized = false;
+  bool _hasBeenInitialized = false;
 
   Future<void> init() async {
-    if (hasBeenInitialized) return;
-    hasBeenInitialized = true;
+    if (_hasBeenInitialized) return;
+    _hasBeenInitialized = true;
 
     final dbDirectory = await getApplicationDocumentsDirectory();
     dbDirectory.create(recursive: true);

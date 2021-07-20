@@ -4,8 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:user_repo/auth/application/auth_notifier.dart';
 import 'package:user_repo/auth/shared/providers.dart';
 import 'package:user_repo/core/presentation/router/app_router.gr.dart';
+import 'package:user_repo/core/shared/providers.dart';
 
 final initializationProvider = FutureProvider<Unit>((ref) async {
+  await ref.read(sembastDatabaseProvider).init();
   final notifier = ref.read(authNotifierProvider.notifier);
   await notifier.checkAndUpdateAuthStatus();
   return unit;
