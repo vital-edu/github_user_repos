@@ -99,7 +99,7 @@ class GithubAuthenticator {
 
     try {
       try {
-        _dioClient.deleteUri<String>(
+        await _dioClient.deleteUri<String>(
           revocationTokenEndpoint,
           data: {
             'access_token': accessToken,
