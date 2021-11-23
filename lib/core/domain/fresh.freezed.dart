@@ -19,7 +19,7 @@ class _$FreshTearOff {
   _Fresh<T> call<T>(
       {required T entity,
       required bool isFresh,
-      bool isNextPageAvailable = false}) {
+      required bool isNextPageAvailable}) {
     return _Fresh<T>(
       entity: entity,
       isFresh: isFresh,
@@ -126,14 +126,13 @@ class _$_Fresh<T> extends _Fresh<T> {
   const _$_Fresh(
       {required this.entity,
       required this.isFresh,
-      this.isNextPageAvailable = false})
+      required this.isNextPageAvailable})
       : super._();
 
   @override
   final T entity;
   @override
   final bool isFresh;
-  @JsonKey(defaultValue: false)
   @override
   final bool isNextPageAvailable;
 
@@ -173,7 +172,7 @@ abstract class _Fresh<T> extends Fresh<T> {
   const factory _Fresh(
       {required T entity,
       required bool isFresh,
-      bool isNextPageAvailable}) = _$_Fresh<T>;
+      required bool isNextPageAvailable}) = _$_Fresh<T>;
   const _Fresh._() : super._();
 
   @override

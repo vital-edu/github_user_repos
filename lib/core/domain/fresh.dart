@@ -8,6 +8,26 @@ class Fresh<T> with _$Fresh<T> {
   const factory Fresh({
     required T entity,
     required bool isFresh,
-    @Default(false) bool isNextPageAvailable,
+    required bool isNextPageAvailable,
   }) = _Fresh<T>;
+
+  factory Fresh.yes(
+    T entity, {
+    required bool isNextPageAvailable,
+  }) =>
+      Fresh(
+        entity: entity,
+        isFresh: true,
+        isNextPageAvailable: isNextPageAvailable,
+      );
+
+  factory Fresh.no(
+    T entity, {
+    required bool isNextPageAvailable,
+  }) =>
+      Fresh(
+        entity: entity,
+        isFresh: false,
+        isNextPageAvailable: isNextPageAvailable,
+      );
 }
