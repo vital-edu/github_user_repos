@@ -34,7 +34,9 @@ class StarredReposRemoteService {
       );
 
       if (response.statusCode == 304) {
-        return const RemoteResponse.notModified();
+        return RemoteResponse.notModified(
+          maxPage: previousHeaders?.link?.maxPage ?? 0,
+        );
       } else if (response.statusCode != 200) {
         throw RestApiException(response.statusCode);
       }
@@ -45,10 +47,15 @@ class StarredReposRemoteService {
       final convertedData = data
           .map((dynamic e) => GithubRepoDTO.fromJson(e as Map<String, dynamic>))
           .toList();
-      return RemoteResponse.withNewData(convertedData);
+      return RemoteResponse.withNewData(
+        convertedData,
+        maxPage: headers.link?.maxPage ?? 1,
+      );
     } on DioError catch (error) {
       if (error.isConnectionError) {
-        return const RemoteResponse.noConnection();
+        return RemoteResponse.noConnection(
+          maxPage: previousHeaders?.link?.maxPage ?? 0,
+        );
       } else if (error.response != null) {
         throw RestApiException(error.response!.statusCode);
       }
