@@ -13,7 +13,8 @@ class StarredReposRemoteService {
   StarredReposRemoteService(this._dio, this._headersCache);
 
   Future<RemoteResponse<List<GithubRepoDTO>>> getStarredReposPage(
-      int page) async {
+    int page,
+  ) async {
     const token = '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';
     const acceptHeader = 'application/vnd.github.v3.html+json';
     final requestUri =
