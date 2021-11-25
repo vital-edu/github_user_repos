@@ -5,6 +5,7 @@ import 'package:user_repo/core/infrastructure/remote_response.dart';
 import 'package:user_repo/github/core/infrastructure/github_headers.dart';
 import 'package:user_repo/github/core/infrastructure/github_headers_cache.dart';
 import 'package:user_repo/github/core/infrastructure/github_repo_dto.dart';
+import 'package:user_repo/github/core/infrastructure/pagination_config.dart';
 
 class StarredReposRemoteService {
   final Dio _dio;
@@ -17,10 +18,14 @@ class StarredReposRemoteService {
   ) async {
     const token = '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';
     const acceptHeader = 'application/vnd.github.v3.html+json';
-    final requestUri =
-        Uri.https('api.github.com', '/user/starred', <String, String>{
-      'page': '$page',
-    });
+    final requestUri = Uri.https(
+      'api.github.com',
+      '/user/starred',
+      <String, String>{
+        'page': '$page',
+        'per_page': PaginationConfig.itemsPerPage.toString()
+      },
+    );
 
     final previousHeaders = await _headersCache.getHeaders(requestUri);
 
