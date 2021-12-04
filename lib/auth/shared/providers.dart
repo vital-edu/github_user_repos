@@ -5,11 +5,20 @@ import 'package:user_repo/auth/application/auth_notifier.dart';
 import 'package:user_repo/auth/infrastructure/credentials_storage/credentials_storage.dart';
 import 'package:user_repo/auth/infrastructure/credentials_storage/secure_credentials_storage.dart';
 import 'package:user_repo/auth/infrastructure/github_authenticator.dart';
-
-final dioProvider = Provider((ref) => Dio());
+import 'package:user_repo/core/infrastructure/oauth2_interceptor.dart';
 
 final flutterSecureStorageProvider = Provider(
   (ref) => const FlutterSecureStorage(),
+);
+
+final dioForAuthProvider = Provider((ref) => Dio());
+
+final oAuth2InterceptorProvider = Provider(
+  (ref) => OAuth2Interceptor(
+    ref.watch(githubAuthenticatorProvider),
+    ref.watch(authNotifierProvider.notifier),
+    ref.watch(dioForAuthProvider),
+  ),
 );
 
 final credentialsStorageProvider = Provider<CredentialsStorage>(
@@ -21,7 +30,7 @@ final credentialsStorageProvider = Provider<CredentialsStorage>(
 final githubAuthenticatorProvider = Provider(
   (ref) => GithubAuthenticator(
     ref.watch(credentialsStorageProvider),
-    ref.watch(dioProvider),
+    ref.watch(dioForAuthProvider),
   ),
 );
 
