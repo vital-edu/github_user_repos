@@ -16,8 +16,6 @@ class StarredReposRemoteService {
   Future<RemoteResponse<List<GithubRepoDTO>>> getStarredReposPage(
     int page,
   ) async {
-    const token = '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';
-    const acceptHeader = 'application/vnd.github.v3.html+json';
     final requestUri = Uri.https(
       'api.github.com',
       '/user/starred',
@@ -33,8 +31,6 @@ class StarredReposRemoteService {
       final response = await _dio.getUri<List<dynamic>>(
         requestUri,
         options: Options(headers: <String, String>{
-          'authorization': 'Bearer $token',
-          'accept': acceptHeader,
           'If-None-Match': previousHeaders?.etag ?? '',
         }),
       );

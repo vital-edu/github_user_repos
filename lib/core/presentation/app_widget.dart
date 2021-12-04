@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +11,11 @@ final initializationProvider = FutureProvider<Unit>((ref) async {
   await ref.read(sembastDatabaseProvider).init();
   final notifier = ref.read(authNotifierProvider.notifier);
   await notifier.checkAndUpdateAuthStatus();
+  ref.read(dioProvider)
+    ..options = BaseOptions(headers: <String, dynamic>{
+      'Accept': 'application/vnd.github.v3+json',
+    })
+    ..interceptors.add(ref.read(oAuth2InterceptorProvider));
   return unit;
 });
 
