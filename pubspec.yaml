@@ -16,7 +16,7 @@ dependencies:
   flutter_secure_storage: ^4.2.0
   fpdart: ^0.0.12
   freezed_annotation: ^0.14.2
-  hooks_riverpod: 1.0.0-dev.5
+  hooks_riverpod: ^1.0.0
   json_annotation: ^4.0.1
   material_design_icons_flutter: ^5.0.5955-rc.1
   oauth2: ^2.0.0
