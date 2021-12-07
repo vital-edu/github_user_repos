@@ -14,7 +14,7 @@ dependencies:
   dio: ^4.0.0
   flash: ^2.0.0
   flutter_secure_storage: ^4.2.0
-  fpdart: ^0.0.6
+  fpdart: ^0.0.12
   freezed_annotation: ^0.14.2
   hooks_riverpod: 1.0.0-dev.5
   json_annotation: ^4.0.1
