@@ -39,7 +39,7 @@ class StarredReposNotifier extends StateNotifier<StarredReposState> {
           ),
         );
 
-  Future<void> getNextAvailablePage() async {
+  Future<void> getNextStarredReposPage() async {
     state = StarredReposState.loadInProgress(
       state.repos,
       PaginationConfig.itemsPerPage,
