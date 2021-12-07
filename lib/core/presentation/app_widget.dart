@@ -24,8 +24,8 @@ class AppWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(initializationProvider, (_) {});
-    ref.listen<AuthState>(authNotifierProvider, (state) {
+    ref.listen(initializationProvider, (_, __) {});
+    ref.listen<AuthState>(authNotifierProvider, (_, state) {
       state.maybeMap(
         orElse: () {},
         authenticated: (_) => router.pushAndPopUntil(
@@ -41,6 +41,7 @@ class AppWidget extends ConsumerWidget {
 
     return MaterialApp.router(
       title: 'Repo Viewer',
+      debugShowCheckedModeBanner: false,
       routeInformationParser: router.defaultRouteParser(),
       routerDelegate: router.delegate(),
     );
