@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:user_repo/github/repos/starred_repos/presentation/repo_tile.dart';
 import 'package:user_repo/github/shared/providers.dart';
 
 class PaginatedReposListView extends ConsumerStatefulWidget {
@@ -26,9 +27,11 @@ class _PaginatedReposListViewState
 
     return ListView.builder(
       itemBuilder: (context, index) {
-        return state.maybeMap(
-          loadSuccess: (_) => Text(_.repos.entity[index].name),
-          orElse: () => Text('Unknown'),
+        return state.map(
+          initial: (_) => Container(),
+          loadInProgress: (_) => Container(),
+          loadSuccess: (_) => RepoTile(repo: _.repos.entity[index]),
+          hasFailure: (_) => Container(),
         );
       },
       itemCount: state.map(
