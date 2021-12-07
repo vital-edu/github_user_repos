@@ -9,6 +9,7 @@ String _descriptionFromJson(Object? json) => (json as String?) ?? '';
 
 @freezed
 class GithubRepoDTO with _$GithubRepoDTO {
+  const GithubRepoDTO._();
   const factory GithubRepoDTO({
     required UserDTO owner,
     required String name,

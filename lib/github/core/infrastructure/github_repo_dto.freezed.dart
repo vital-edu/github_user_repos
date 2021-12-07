@@ -172,12 +172,13 @@ class __$GithubRepoDTOCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_GithubRepoDTO implements _GithubRepoDTO {
+class _$_GithubRepoDTO extends _GithubRepoDTO {
   const _$_GithubRepoDTO(
       {required this.owner,
       required this.name,
       @JsonKey(fromJson: _descriptionFromJson) required this.description,
-      @JsonKey(name: 'stargazers_count') required this.stargazersCount});
+      @JsonKey(name: 'stargazers_count') required this.stargazersCount})
+      : super._();
 
   factory _$_GithubRepoDTO.fromJson(Map<String, dynamic> json) =>
       _$_$_GithubRepoDTOFromJson(json);
@@ -233,13 +234,14 @@ class _$_GithubRepoDTO implements _GithubRepoDTO {
   }
 }
 
-abstract class _GithubRepoDTO implements GithubRepoDTO {
+abstract class _GithubRepoDTO extends GithubRepoDTO {
   const factory _GithubRepoDTO(
           {required UserDTO owner,
           required String name,
           @JsonKey(fromJson: _descriptionFromJson) required String description,
           @JsonKey(name: 'stargazers_count') required int stargazersCount}) =
       _$_GithubRepoDTO;
+  const _GithubRepoDTO._() : super._();
 
   factory _GithubRepoDTO.fromJson(Map<String, dynamic> json) =
       _$_GithubRepoDTO.fromJson;
