@@ -1,7 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:user_repo/core/domain/fresh.dart';
 import 'package:user_repo/github/core/domain/github_failure.dart';
 import 'package:user_repo/github/core/domain/github_repo.dart';
+import 'package:user_repo/github/core/infrastructure/pagination_config.dart';
+import 'package:user_repo/github/repos/starred_repos/infrastructure/starred_repos_repository.dart';
 
 part 'starred_repos_notifier.freezed.dart';
 
@@ -15,12 +18,45 @@ class StarredReposState with _$StarredReposState {
     Fresh<List<GithubRepo>> repos,
     int itemsPerPage,
   ) = _LoadInProgress;
-  const factory StarredReposState.loaded(
+  const factory StarredReposState.loadSuccess(
     Fresh<List<GithubRepo>> repos, {
     required bool isNextPageAvailable,
-  }) = _Loaded;
+  }) = _LoadSuccess;
   const factory StarredReposState.hasFailure(
     Fresh<List<GithubRepo>> repos,
     GithubFailure failure,
   ) = _HasFailure;
+}
+
+class StarredReposNotifier extends StateNotifier<StarredReposState> {
+  int _page = 0;
+  final StarredReposRepository repo;
+
+  StarredReposNotifier(this.repo)
+      : super(
+          StarredReposState.initial(
+            Fresh.yes([], isNextPageAvailable: true),
+          ),
+        );
+
+  Future<void> getNextAvailablePage() async {
+    state = StarredReposState.loadInProgress(
+      state.repos,
+      PaginationConfig.itemsPerPage,
+    );
+
+    final failureOrRepos = await repo.getStarredReposPage(_page);
+    state = failureOrRepos.fold(
+      (l) => StarredReposState.hasFailure(state.repos, l),
+      (r) {
+        _page++;
+        return StarredReposState.loadSuccess(
+          r.copyWith(
+            entity: [...state.repos.entity, ...r.entity],
+          ),
+          isNextPageAvailable: r.isNextPageAvailable,
+        );
+      },
+    );
+  }
 }
