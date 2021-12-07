@@ -30,9 +30,9 @@ class StarredReposState with _$StarredReposState {
 
 class StarredReposNotifier extends StateNotifier<StarredReposState> {
   int _page = 0;
-  final StarredReposRepository repo;
+  final StarredReposRepository _repository;
 
-  StarredReposNotifier(this.repo)
+  StarredReposNotifier(this._repository)
       : super(
           StarredReposState.initial(
             Fresh.yes([], isNextPageAvailable: true),
@@ -45,7 +45,7 @@ class StarredReposNotifier extends StateNotifier<StarredReposState> {
       PaginationConfig.itemsPerPage,
     );
 
-    final failureOrRepos = await repo.getStarredReposPage(_page);
+    final failureOrRepos = await _repository.getStarredReposPage(_page);
     state = failureOrRepos.fold(
       (l) => StarredReposState.hasFailure(state.repos, l),
       (r) {
