@@ -14,6 +14,7 @@ class RepoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
+        backgroundColor: Colors.transparent,
         backgroundImage: CachedNetworkImageProvider(repo.owner.avatarUrl),
       ),
       title: Text(repo.name),
@@ -22,6 +23,19 @@ class RepoTile extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.star_border),
+          Text(
+            '${repo.stargazersCount}',
+            style: Theme.of(context).textTheme.caption,
+          )
+        ],
+      ),
+      onTap: () {
+        // TODO: open repo detail page.
+      },
     );
   }
 }
