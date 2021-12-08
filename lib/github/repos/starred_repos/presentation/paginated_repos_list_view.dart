@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:user_repo/github/repos/starred_repos/presentation/loading_repo_tile.dart';
 import 'package:user_repo/github/repos/starred_repos/presentation/repo_tile.dart';
 import 'package:user_repo/github/shared/providers.dart';
 
@@ -29,7 +30,9 @@ class _PaginatedReposListViewState
       itemBuilder: (context, index) {
         return state.map(
           initial: (_) => Container(),
-          loadInProgress: (_) => Container(),
+          loadInProgress: (_) => (index < _.repos.entity.length)
+              ? RepoTile(repo: _.repos.entity[index])
+              : const LoadingRepoTile(),
           loadSuccess: (_) => RepoTile(repo: _.repos.entity[index]),
           hasFailure: (_) => Container(),
         );
