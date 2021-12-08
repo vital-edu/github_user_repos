@@ -12,9 +12,13 @@ final initializationProvider = FutureProvider<Unit>((ref) async {
   final notifier = ref.read(authNotifierProvider.notifier);
   await notifier.checkAndUpdateAuthStatus();
   ref.read(dioProvider)
-    ..options = BaseOptions(headers: <String, dynamic>{
-      'Accept': 'application/vnd.github.v3+json',
-    })
+    ..options = BaseOptions(
+      headers: <String, dynamic>{
+        'Accept': 'application/vnd.github.v3+json',
+      },
+      validateStatus: (status) =>
+          status != null && status >= 200 && status < 400,
+    )
     ..interceptors.add(ref.read(oAuth2InterceptorProvider));
   return unit;
 });
