@@ -28,7 +28,7 @@ class StarredReposRemoteService {
     final previousHeaders = await _headersCache.getHeaders(requestUri);
 
     try {
-      final response = await _dio.getUri<List<dynamic>>(
+      final response = await _dio.getUri<dynamic>(
         requestUri,
         options: Options(headers: <String, String>{
           'If-None-Match': previousHeaders?.etag ?? '',
@@ -45,7 +45,7 @@ class StarredReposRemoteService {
 
       final headers = GithubHeaders.parse(response);
       await _headersCache.saveHeaders(requestUri, headers);
-      final data = response.data ?? <Map<String, Object>>[];
+      final data = response.data as List<dynamic>;
       final convertedData = data
           .map((dynamic e) => GithubRepoDTO.fromJson(e as Map<String, dynamic>))
           .toList();
