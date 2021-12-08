@@ -26,6 +26,7 @@ dependencies:
   webview_flutter: ^2.0.8
   collection: ^1.15.0
   cached_network_image: ^3.2.0
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
