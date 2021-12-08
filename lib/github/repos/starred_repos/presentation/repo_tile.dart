@@ -15,7 +15,7 @@ class RepoTile extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.transparent,
-        backgroundImage: CachedNetworkImageProvider(repo.owner.avatarUrl),
+        backgroundImage: CachedNetworkImageProvider(repo.owner.avatarUrlSmall),
       ),
       title: Text(repo.name),
       subtitle: Text(
