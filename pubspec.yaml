@@ -12,7 +12,7 @@ dependencies:
   auto_route: ^2.2.0
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
-  flash: ^2.0.0
+  flash: ^1.5.2
   flutter_secure_storage: ^4.2.0
   fpdart: ^0.0.12
   freezed_annotation: ^0.14.2
