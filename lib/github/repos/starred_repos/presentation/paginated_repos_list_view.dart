@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:user_repo/github/repos/starred_repos/presentation/failure_repo_tile.dart';
 import 'package:user_repo/github/repos/starred_repos/presentation/loading_repo_tile.dart';
 import 'package:user_repo/github/repos/starred_repos/presentation/repo_tile.dart';
 import 'package:user_repo/github/shared/providers.dart';
@@ -34,7 +35,9 @@ class _PaginatedReposListViewState
               ? RepoTile(repo: _.repos.entity[index])
               : const LoadingRepoTile(),
           loadSuccess: (_) => RepoTile(repo: _.repos.entity[index]),
-          hasFailure: (_) => Container(),
+          hasFailure: (_) => index < _.repos.entity.length
+              ? RepoTile(repo: _.repos.entity[index])
+              : FailureRepoTile(failure: _.failure),
         );
       },
       itemCount: state.map(
