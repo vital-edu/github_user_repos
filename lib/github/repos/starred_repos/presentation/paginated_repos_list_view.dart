@@ -41,9 +41,9 @@ class _PaginatedReposListViewState
           if (!_.repos.isFresh && !hasAlreadyShownNoConnectionToast) {
             hasAlreadyShownNoConnectionToast = true;
             showNoConnectionToast(
-                context: context,
-                message:
-                    "You're not online. Some information may be outdated.");
+              context: context,
+              message: "You're not online. Some information may be outdated.",
+            );
           }
           canLoadNextPage = _.isNextPageAvailable;
         },

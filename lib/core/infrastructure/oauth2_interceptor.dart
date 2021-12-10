@@ -11,7 +11,9 @@ class OAuth2Interceptor extends Interceptor {
 
   @override
   Future<void> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final credentials = await _authenticator.getSignedInCredentials();
     if (credentials == null) return handler.next(options);
 

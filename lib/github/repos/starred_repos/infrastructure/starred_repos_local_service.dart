@@ -14,20 +14,24 @@ class StarredReposLocalService {
     final dbPage = page - 1;
 
     await _store
-        .records(dtos.mapIndexed(
-          (index, _) => index + dbPage * PaginationConfig.itemsPerPage,
-        ))
+        .records(
+          dtos.mapIndexed(
+            (index, _) => index + dbPage * PaginationConfig.itemsPerPage,
+          ),
+        )
         .put(_database.instance, dtos.map((e) => e.toJson()).toList());
   }
 
   Future<List<GithubRepoDTO>> getPage(int page) async {
     final dbPage = page - 1;
 
-    final records = await _store.find(_database.instance,
-        finder: Finder(
-          limit: PaginationConfig.itemsPerPage,
-          offset: PaginationConfig.itemsPerPage * dbPage,
-        ));
+    final records = await _store.find(
+      _database.instance,
+      finder: Finder(
+        limit: PaginationConfig.itemsPerPage,
+        offset: PaginationConfig.itemsPerPage * dbPage,
+      ),
+    );
 
     return records.map((e) => GithubRepoDTO.fromJson(e.value)).toList();
   }

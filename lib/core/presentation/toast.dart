@@ -1,9 +1,10 @@
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-Future<void> showNoConnectionToast(
-    {required BuildContext context, required String message}) async {
+Future<void> showNoConnectionToast({
+  required BuildContext context,
+  required String message,
+}) async {
   await showFlash(
     context: context,
     duration: const Duration(seconds: 4),

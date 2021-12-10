@@ -30,9 +30,11 @@ class StarredReposRemoteService {
     try {
       final response = await _dio.getUri<dynamic>(
         requestUri,
-        options: Options(headers: <String, String>{
-          'If-None-Match': previousHeaders?.etag ?? '',
-        }),
+        options: Options(
+          headers: <String, String>{
+            'If-None-Match': previousHeaders?.etag ?? '',
+          },
+        ),
       );
 
       if (response.statusCode == 304) {
