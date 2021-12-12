@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:user_repo/core/presentation/toast.dart';
+import 'package:user_repo/github/core/presentation/no_results_display.dart';
 import 'package:user_repo/github/repos/starred_repos/application/starred_repos_notifier.dart';
 import 'package:user_repo/github/repos/starred_repos/presentation/failure_repo_tile.dart';
 import 'package:user_repo/github/repos/starred_repos/presentation/loading_repo_tile.dart';
@@ -52,7 +53,15 @@ class _PaginatedReposListViewState
     });
 
     return NotificationListener<ScrollNotification>(
-      child: _PaginatedReposListView(state: state),
+      child: state.maybeMap(
+        loadSuccess: (_) => _.repos.entity.isEmpty
+            ? const NoResultsDisplay(
+                message:
+                    'This is all we could find for your search term. Really...',
+              )
+            : _PaginatedReposListView(state: state),
+        orElse: () => _PaginatedReposListView(state: state),
+      ),
       onNotification: (notification) {
         final pixels = notification.metrics.pixels;
         final viewportDimension = notification.metrics.viewportDimension;
