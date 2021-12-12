@@ -1,3 +1,7 @@
+// **************************************************************************
+// AutoRouteGenerator
+// **************************************************************************
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -52,34 +56,38 @@ class AppRouter extends _i5.RootStackRouter {
       ];
 }
 
-/// generated route for [_i1.SplashPage]
+/// generated route for
+/// [_i1.SplashPage]
 class SplashRoute extends _i5.PageRouteInfo<void> {
-  const SplashRoute() : super(name, path: '/');
+  const SplashRoute() : super(SplashRoute.name, path: '/');
 
   static const String name = 'SplashRoute';
 }
 
-/// generated route for [_i2.StarredReposPage]
+/// generated route for
+/// [_i2.StarredReposPage]
 class StarredReposRoute extends _i5.PageRouteInfo<void> {
-  const StarredReposRoute() : super(name, path: '/starred');
+  const StarredReposRoute() : super(StarredReposRoute.name, path: '/starred');
 
   static const String name = 'StarredReposRoute';
 }
 
-/// generated route for [_i3.SignInPage]
+/// generated route for
+/// [_i3.SignInPage]
 class SignInRoute extends _i5.PageRouteInfo<void> {
-  const SignInRoute() : super(name, path: '/signin');
+  const SignInRoute() : super(SignInRoute.name, path: '/signin');
 
   static const String name = 'SignInRoute';
 }
 
-/// generated route for [_i4.AuthorizationPage]
+/// generated route for
+/// [_i4.AuthorizationPage]
 class AuthorizationRoute extends _i5.PageRouteInfo<AuthorizationRouteArgs> {
   AuthorizationRoute(
       {_i6.Key? key,
       required Uri authorizationUrl,
       required dynamic Function(Uri) onAuthorizationCodeRedirectAttempt})
-      : super(name,
+      : super(AuthorizationRoute.name,
             path: '/auth',
             args: AuthorizationRouteArgs(
                 key: key,
@@ -101,4 +109,9 @@ class AuthorizationRouteArgs {
   final Uri authorizationUrl;
 
   final dynamic Function(Uri) onAuthorizationCodeRedirectAttempt;
+
+  @override
+  String toString() {
+    return 'AuthorizationRouteArgs{key: $key, authorizationUrl: $authorizationUrl, onAuthorizationCodeRedirectAttempt: $onAuthorizationCodeRedirectAttempt}';
+  }
 }
