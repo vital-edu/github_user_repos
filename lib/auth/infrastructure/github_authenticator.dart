@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:oauth2/oauth2.dart';
 import 'package:user_repo/auth/domain/auth_failure.dart';
 import 'package:user_repo/auth/infrastructure/credentials_storage/credentials_storage.dart';
-import 'package:user_repo/core/infrastructure/dio_extensions.dart';
+import 'package:user_repo/core/infrastructure/extensions/dio_extensions.dart';
 import 'package:user_repo/core/shared/encoders.dart';
 
 class GithubOAuthHttpClient extends http.BaseClient {

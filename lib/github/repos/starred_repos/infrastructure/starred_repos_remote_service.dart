@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:user_repo/core/infrastructure/dio_extensions.dart';
+import 'package:user_repo/core/infrastructure/extensions/dio_extensions.dart';
 import 'package:user_repo/core/infrastructure/network_exceptions.dart';
 import 'package:user_repo/core/infrastructure/remote_response.dart';
 import 'package:user_repo/github/core/infrastructure/github_headers.dart';
