@@ -43,18 +43,24 @@ class _SearchBarState extends ConsumerState<SearchBar> {
       controller: _controller,
       builder: (context, _) {
         final searchHistoryState = ref.watch(searchHistoryNotifierProvider);
-        return searchHistoryState.map(
-          data: (data) => Column(
-            children: data.value
-                .map(
-                  (e) => ListTile(
-                    title: Text(e),
-                  ),
-                )
-                .toList(),
+        return Material(
+          elevation: 4,
+          borderRadius: BorderRadius.circular(8),
+          clipBehavior: Clip.hardEdge,
+          color: Theme.of(context).cardColor,
+          child: searchHistoryState.map(
+            data: (data) => Column(
+              children: data.value
+                  .map(
+                    (e) => ListTile(
+                      title: Text(e),
+                    ),
+                  )
+                  .toList(),
+            ),
+            error: (error) => ListTile(title: Text(error.toString())),
+            loading: (_) => const ListTile(title: LinearProgressIndicator()),
           ),
-          error: (error) => ListTile(title: Text(error.toString())),
-          loading: (_) => const ListTile(title: LinearProgressIndicator()),
         );
       },
       body: FloatingSearchBarScrollNotifier(child: widget.body),
