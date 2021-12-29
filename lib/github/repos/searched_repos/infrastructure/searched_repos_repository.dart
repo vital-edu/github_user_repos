@@ -4,7 +4,7 @@ import 'package:user_repo/core/infrastructure/network_exceptions.dart';
 import 'package:user_repo/github/core/domain/github_failure.dart';
 import 'package:user_repo/github/core/domain/github_repo.dart';
 import 'package:user_repo/github/repos/core/infrastructure/extensions.dart';
-import 'package:user_repo/github/repos/search_repos/infrastructure/searched_repos_remote_service.dart';
+import 'package:user_repo/github/repos/searched_repos/infrastructure/searched_repos_remote_service.dart';
 
 class SearchedReposRepository {
   final SearchedReposRemoteService _remoteService;
