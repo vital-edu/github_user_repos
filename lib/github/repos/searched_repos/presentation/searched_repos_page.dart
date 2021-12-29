@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:user_repo/auth/shared/providers.dart';
 import 'package:user_repo/github/core/presentation/paginated_repos_list_view.dart';
 import 'package:user_repo/github/shared/providers.dart';
 
@@ -16,8 +17,13 @@ class SearchedReposPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Searched repos'),
-        actions: const [Icon(MdiIcons.logoutVariant)],
+        title: Text(query),
+        actions: [
+          IconButton(
+            icon: const Icon(MdiIcons.logoutVariant),
+            onPressed: () => ref.read(authNotifierProvider.notifier).signOut(),
+          ),
+        ],
       ),
       body: PaginatedReposListView(
         paginatedReposNotifierProvider: searchedReposNotifierProvider,
