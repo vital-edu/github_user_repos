@@ -31,7 +31,7 @@ class SearchHistoryRepository {
       _deleteSearchTerm(term, dbClient: _database.instance);
 
   Future<void> putSearchTermFirst(String term) async {
-    _database.instance.transaction((transaction) async {
+    await _database.instance.transaction((transaction) async {
       await _deleteSearchTerm(term, dbClient: transaction);
       await _addSearchTerm(term, dbClient: transaction);
     });
@@ -42,7 +42,7 @@ class SearchHistoryRepository {
     required DatabaseClient dbClient,
   }) async {
     final existingKey = await _store.findKey(
-      _database.instance,
+      dbClient,
       finder: Finder(filter: Filter.custom((record) => record.value == term)),
     );
 
@@ -50,9 +50,9 @@ class SearchHistoryRepository {
       return putSearchTermFirst(term);
     }
 
-    await _store.add(_database.instance, term);
+    await _store.add(dbClient, term);
 
-    final termsCount = await _store.count(_database.instance);
+    final termsCount = await _store.count(dbClient);
     if (termsCount > historyLength) {
       await _store.delete(
         dbClient,
