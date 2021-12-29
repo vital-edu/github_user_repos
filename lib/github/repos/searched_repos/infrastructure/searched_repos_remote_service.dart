@@ -18,7 +18,7 @@ class SearchedReposRemoteService extends ReposRemoteService {
       super.getPage(
         requestUri: Uri.https(
           'api.github.com',
-          '/user/starred',
+          '/search/repositories',
           <String, String>{
             'q': query,
             'page': '$page',
