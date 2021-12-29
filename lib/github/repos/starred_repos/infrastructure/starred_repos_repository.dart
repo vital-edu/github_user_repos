@@ -3,7 +3,7 @@ import 'package:user_repo/core/domain/fresh.dart';
 import 'package:user_repo/core/infrastructure/network_exceptions.dart';
 import 'package:user_repo/github/core/domain/github_failure.dart';
 import 'package:user_repo/github/core/domain/github_repo.dart';
-import 'package:user_repo/github/core/infrastructure/github_repo_dto.dart';
+import 'package:user_repo/github/repos/core/infrastructure/extensions.dart';
 import 'package:user_repo/github/repos/starred_repos/infrastructure/starred_repos_local_service.dart';
 import 'package:user_repo/github/repos/starred_repos/infrastructure/starred_repos_remote_service.dart';
 
@@ -48,8 +48,4 @@ class StarredReposRepository {
       return left(GithubFailure.api(error.errorCode));
     }
   }
-}
-
-extension DTOListToDomainList on List<GithubRepoDTO> {
-  List<GithubRepo> toDomain() => map((e) => e.toDomain()).toList();
 }
