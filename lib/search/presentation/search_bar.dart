@@ -49,15 +49,31 @@ class _SearchBarState extends ConsumerState<SearchBar> {
           clipBehavior: Clip.hardEdge,
           color: Theme.of(context).cardColor,
           child: searchHistoryState.map(
-            data: (data) => Column(
-              children: data.value
-                  .map(
-                    (e) => ListTile(
-                      title: Text(e),
-                    ),
-                  )
-                  .toList(),
-            ),
+            data: (data) {
+              return Column(
+                children: data.value
+                    .map(
+                      (term) => ListTile(
+                        title: Text(term),
+                        leading: const Icon(Icons.history),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () => ref
+                              .read(searchHistoryNotifierProvider.notifier)
+                              .deleteSearchTerm(term),
+                        ),
+                        onTap: () {
+                          widget.onShouldNavigateToResultPage(term);
+                          ref
+                              .read(searchHistoryNotifierProvider.notifier)
+                              .putSearchTermFirst(term);
+                          _controller.close();
+                        },
+                      ),
+                    )
+                    .toList(),
+              );
+            },
             error: (error) => ListTile(title: Text(error.toString())),
             loading: (_) => const ListTile(title: LinearProgressIndicator()),
           ),
