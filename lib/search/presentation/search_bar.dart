@@ -48,10 +48,16 @@ class _SearchBarState extends ConsumerState<SearchBar> {
         ],
       ),
       hint: widget.hint,
-      leadingActions: [
-        IconButton(
-          onPressed: widget.onSignOutButtonPressed,
-          icon: const Icon(MdiIcons.logoutVariant),
+      actions: [
+        FloatingSearchBarAction.searchToClear(
+          showIfClosed: false,
+        ),
+        FloatingSearchBarAction(
+          child: IconButton(
+            icon: const Icon(MdiIcons.logoutVariant),
+            onPressed: widget.onSignOutButtonPressed,
+            splashRadius: 20,
+          ),
         )
       ],
       onSubmitted: widget.onShouldNavigateToResultPage,
