@@ -8,8 +8,8 @@ import 'package:user_repo/github/core/presentation/no_results_display.dart';
 import 'package:user_repo/github/core/presentation/repo_tile.dart';
 
 class PaginatedReposListView extends ConsumerStatefulWidget {
-  final StateNotifierProvider<PaginatedReposNotifier, PaginatedReposState>
-      paginatedReposNotifierProvider;
+  final AutoDisposeStateNotifierProvider<PaginatedReposNotifier,
+      PaginatedReposState> paginatedReposNotifierProvider;
   final Function(WidgetRef ref) getNextPage;
   final String noResultsMessage;
 
