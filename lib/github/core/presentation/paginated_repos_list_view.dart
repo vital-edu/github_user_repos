@@ -33,7 +33,7 @@ class _PaginatedReposListViewState
   @override
   void initState() {
     super.initState();
-    widget.getNextPage(ref);
+    Future<void>.microtask(() => widget.getNextPage(ref));
   }
 
   @override
