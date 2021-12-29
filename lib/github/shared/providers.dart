@@ -2,6 +2,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:user_repo/core/shared/providers.dart';
 import 'package:user_repo/github/core/application/paginated_repos_notifier.dart';
 import 'package:user_repo/github/core/infrastructure/github_headers_cache.dart';
+import 'package:user_repo/github/repos/search_repos/infrastructure/searched_repos_remote_service.dart';
+import 'package:user_repo/github/repos/search_repos/infrastructure/searched_repos_repository.dart';
+import 'package:user_repo/github/repos/searched_repos/application/searched_repos_notifier.dart';
 import 'package:user_repo/github/repos/starred_repos/application/starred_repos_notifier.dart';
 import 'package:user_repo/github/repos/starred_repos/infrastructure/starred_repos_local_service.dart';
 import 'package:user_repo/github/repos/starred_repos/infrastructure/starred_repos_remote_service.dart';
@@ -32,4 +35,22 @@ final starredReposRepositoryProvider = Provider(
 final starredReposNotifierProvider =
     StateNotifierProvider<StarredReposNotifier, PaginatedReposState>(
   (ref) => StarredReposNotifier(ref.watch(starredReposRepositoryProvider)),
+);
+
+final searchedReposRemoteServiceProvider = Provider(
+  (ref) => SearchedReposRemoteService(
+    ref.watch(dioProvider),
+    ref.watch(githubHeadersCacheProvider),
+  ),
+);
+
+final searchedReposRepositoryProvider = Provider(
+  (ref) => SearchedReposRepository(
+    ref.watch(searchedReposRemoteServiceProvider),
+  ),
+);
+
+final searchedReposNotifierProvider =
+    StateNotifierProvider<SearchedReposNotifier, PaginatedReposState>(
+  (ref) => SearchedReposNotifier(ref.watch(searchedReposRepositoryProvider)),
 );

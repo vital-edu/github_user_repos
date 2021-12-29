@@ -41,6 +41,7 @@ class PaginatedReposNotifier extends StateNotifier<PaginatedReposState> {
           ),
         );
 
+  @protected
   Future<void> getNextPage(RepositoryGetter repoGetter) async {
     state = PaginatedReposState.loadInProgress(
       state.repos,
