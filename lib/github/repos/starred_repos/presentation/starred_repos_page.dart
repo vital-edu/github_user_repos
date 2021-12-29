@@ -14,15 +14,13 @@ class StarredReposPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SearchBar(
-        body: SafeArea(
-          child: PaginatedReposListView(
-            paginatedReposNotifierProvider: starredReposNotifierProvider,
-            getNextPage: (ref) => ref
-                .read(starredReposNotifierProvider.notifier)
-                .getNextStarredReposPage(),
-            noResultsMessage:
-                "That's about everything we could find in your starred repos right now.",
-          ),
+        body: PaginatedReposListView(
+          paginatedReposNotifierProvider: starredReposNotifierProvider,
+          getNextPage: (ref) => ref
+              .read(starredReposNotifierProvider.notifier)
+              .getNextStarredReposPage(),
+          noResultsMessage:
+              "That's about everything we could find in your starred repos right now.",
         ),
         title: 'Starred repositories',
         hint: 'Search all repositories...',

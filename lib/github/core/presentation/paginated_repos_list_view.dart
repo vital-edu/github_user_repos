@@ -95,8 +95,10 @@ class _PaginatedReposListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appBarHeight = FloatingSearchBar.of(context)?.widget.height;
-    final double topMargin = appBarHeight != null ? appBarHeight + 8 : 0;
+    final searchBarHeight = FloatingSearchBar.of(context)?.widget.height;
+    final baseMargin = MediaQuery.of(context).padding.top + 8;
+    final topMargin =
+        searchBarHeight != null ? searchBarHeight + baseMargin : 0.0;
 
     return ListView.builder(
       padding: EdgeInsets.only(top: topMargin),
