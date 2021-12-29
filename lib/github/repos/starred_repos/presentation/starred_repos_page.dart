@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:user_repo/auth/shared/providers.dart';
 import 'package:user_repo/core/presentation/router/app_router.gr.dart';
 import 'package:user_repo/github/core/presentation/paginated_repos_list_view.dart';
@@ -15,13 +14,15 @@ class StarredReposPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SearchBar(
-        body: PaginatedReposListView(
-          paginatedReposNotifierProvider: starredReposNotifierProvider,
-          getNextPage: (ref) => ref
-              .read(starredReposNotifierProvider.notifier)
-              .getNextStarredReposPage(),
-          noResultsMessage:
-              "That's about everything we could find in your starred repos right now.",
+        body: SafeArea(
+          child: PaginatedReposListView(
+            paginatedReposNotifierProvider: starredReposNotifierProvider,
+            getNextPage: (ref) => ref
+                .read(starredReposNotifierProvider.notifier)
+                .getNextStarredReposPage(),
+            noResultsMessage:
+                "That's about everything we could find in your starred repos right now.",
+          ),
         ),
         title: 'Starred repositories',
         hint: 'Search all repositories...',
