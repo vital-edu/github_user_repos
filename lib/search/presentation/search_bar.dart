@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:user_repo/search/shared/providers.dart';
 
 class SearchBar extends ConsumerStatefulWidget {
   final String title;
@@ -23,15 +24,39 @@ class SearchBar extends ConsumerStatefulWidget {
 }
 
 class _SearchBarState extends ConsumerState<SearchBar> {
+  final _controller = FloatingSearchBarController();
+
   @override
   void initState() {
     super.initState();
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FloatingSearchBar(
-      builder: (context, _) => Container(),
+      controller: _controller,
+      builder: (context, _) {
+        final searchHistoryState = ref.watch(searchHistoryNotifierProvider);
+        return searchHistoryState.map(
+          data: (data) => Column(
+            children: data.value
+                .map(
+                  (e) => ListTile(
+                    title: Text(e),
+                  ),
+                )
+                .toList(),
+          ),
+          error: (error) => ListTile(title: Text(error.toString())),
+          loading: (_) => const ListTile(title: LinearProgressIndicator()),
+        );
+      },
       body: FloatingSearchBarScrollNotifier(child: widget.body),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +85,13 @@ class _SearchBarState extends ConsumerState<SearchBar> {
           ),
         )
       ],
-      onSubmitted: widget.onShouldNavigateToResultPage,
+      onSubmitted: (term) {
+        _controller.close();
+        ref.read(searchHistoryNotifierProvider.notifier).addSearchTerm(term);
+        widget.onShouldNavigateToResultPage(term);
+      },
+      onQueryChanged:
+          ref.read(searchHistoryNotifierProvider.notifier).watchSearchTerms,
     );
   }
 }
