@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:user_repo/core/shared/providers.dart';
+import 'package:user_repo/github/core/application/paginated_repos_notifier.dart';
 import 'package:user_repo/github/core/infrastructure/github_headers_cache.dart';
 import 'package:user_repo/github/repos/starred_repos/application/starred_repos_notifier.dart';
 import 'package:user_repo/github/repos/starred_repos/infrastructure/starred_repos_local_service.dart';
@@ -29,6 +30,6 @@ final starredReposRepositoryProvider = Provider(
 );
 
 final starredReposNotifierProvider =
-    StateNotifierProvider<StarredReposNotifier, StarredReposState>(
+    StateNotifierProvider<StarredReposNotifier, PaginatedReposState>(
   (ref) => StarredReposNotifier(ref.watch(starredReposRepositoryProvider)),
 );

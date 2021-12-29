@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:user_repo/core/presentation/toast.dart';
+import 'package:user_repo/github/core/application/paginated_repos_notifier.dart';
 import 'package:user_repo/github/core/presentation/no_results_display.dart';
-import 'package:user_repo/github/repos/starred_repos/application/starred_repos_notifier.dart';
 import 'package:user_repo/github/repos/starred_repos/presentation/failure_repo_tile.dart';
 import 'package:user_repo/github/repos/starred_repos/presentation/loading_repo_tile.dart';
 import 'package:user_repo/github/repos/starred_repos/presentation/repo_tile.dart';
@@ -31,9 +31,9 @@ class _PaginatedReposListViewState
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(starredReposNotifierProvider);
+    final state = ref.watch<PaginatedReposState>(starredReposNotifierProvider);
 
-    ref.listen<StarredReposState>(starredReposNotifierProvider,
+    ref.listen<PaginatedReposState>(starredReposNotifierProvider,
         (previous, next) {
       next.map(
         initial: (_) => canLoadNextPage = true,
@@ -87,7 +87,7 @@ class _PaginatedReposListView extends StatelessWidget {
     required this.state,
   }) : super(key: key);
 
-  final StarredReposState state;
+  final PaginatedReposState state;
 
   @override
   Widget build(BuildContext context) {
