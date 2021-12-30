@@ -21,7 +21,7 @@ class GithubRepoDetailState with _$GithubRepoDetailState {
     @Default(false) bool hasStarredStatusChanged,
   }) = _LoadFailure;
   const factory GithubRepoDetailState.loadSuccess(
-    Fresh<GithubRepoDetail?> data, {
+    Fresh<GithubRepoDetail?> repoDetail, {
     @Default(false) bool hasStarredStatusChanged,
   }) = _LoadSuccess;
 }
@@ -40,6 +40,32 @@ class GithubRepoDetailNotifier extends StateNotifier<GithubRepoDetailState> {
     state = result.fold(
       (l) => GithubRepoDetailState.loadFailure(l),
       (r) => GithubRepoDetailState.loadSuccess(r),
+    );
+  }
+
+  Future<void> swithStarredStatus(GithubRepoDetail repo) async {
+    state.maybeMap(
+      orElse: () {},
+      loadSuccess: (successState) async {
+        final stateCopy = successState.copyWith();
+        final repoDetail = successState.repoDetail.entity;
+
+        if (repoDetail != null) {
+          state = successState.copyWith.repoDetail(
+            entity: repoDetail.copyWith(starred: !repoDetail.starred),
+          );
+
+          final result = await _repository.switchStarredStatus(repoDetail);
+          state = result.fold(
+            (l) => stateCopy,
+            (r) => r == null
+                ? stateCopy
+                : successState.copyWith(
+                    hasStarredStatusChanged: true,
+                  ),
+          );
+        }
+      },
     );
   }
 }

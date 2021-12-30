@@ -37,10 +37,10 @@ class _$GithubRepoDetailStateTearOff {
     );
   }
 
-  _LoadSuccess loadSuccess(Fresh<GithubRepoDetail?> data,
+  _LoadSuccess loadSuccess(Fresh<GithubRepoDetail?> repoDetail,
       {bool hasStarredStatusChanged = false}) {
     return _LoadSuccess(
-      data,
+      repoDetail,
       hasStarredStatusChanged: hasStarredStatusChanged,
     );
   }
@@ -61,7 +61,7 @@ mixin _$GithubRepoDetailState {
             GithubFailure failure, bool hasStarredStatusChanged)
         loadFailure,
     required TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)
         loadSuccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -72,7 +72,7 @@ mixin _$GithubRepoDetailState {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -83,7 +83,7 @@ mixin _$GithubRepoDetailState {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
     required TResult orElse(),
   }) =>
@@ -224,7 +224,7 @@ class _$_Initial extends _Initial {
             GithubFailure failure, bool hasStarredStatusChanged)
         loadFailure,
     required TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)
         loadSuccess,
   }) {
     return initial(hasStarredStatusChanged);
@@ -238,7 +238,7 @@ class _$_Initial extends _Initial {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
   }) {
     return initial?.call(hasStarredStatusChanged);
@@ -252,7 +252,7 @@ class _$_Initial extends _Initial {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
     required TResult orElse(),
   }) {
@@ -389,7 +389,7 @@ class _$_LoadInProgress extends _LoadInProgress {
             GithubFailure failure, bool hasStarredStatusChanged)
         loadFailure,
     required TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)
         loadSuccess,
   }) {
     return loadInProgress(hasStarredStatusChanged);
@@ -403,7 +403,7 @@ class _$_LoadInProgress extends _LoadInProgress {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
   }) {
     return loadInProgress?.call(hasStarredStatusChanged);
@@ -417,7 +417,7 @@ class _$_LoadInProgress extends _LoadInProgress {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
     required TResult orElse(),
   }) {
@@ -576,7 +576,7 @@ class _$_LoadFailure extends _LoadFailure {
             GithubFailure failure, bool hasStarredStatusChanged)
         loadFailure,
     required TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)
         loadSuccess,
   }) {
     return loadFailure(failure, hasStarredStatusChanged);
@@ -590,7 +590,7 @@ class _$_LoadFailure extends _LoadFailure {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
   }) {
     return loadFailure?.call(failure, hasStarredStatusChanged);
@@ -604,7 +604,7 @@ class _$_LoadFailure extends _LoadFailure {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
     required TResult orElse(),
   }) {
@@ -673,9 +673,10 @@ abstract class _$LoadSuccessCopyWith<$Res>
           _LoadSuccess value, $Res Function(_LoadSuccess) then) =
       __$LoadSuccessCopyWithImpl<$Res>;
   @override
-  $Res call({Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged});
+  $Res call(
+      {Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged});
 
-  $FreshCopyWith<GithubRepoDetail?, $Res> get data;
+  $FreshCopyWith<GithubRepoDetail?, $Res> get repoDetail;
 }
 
 /// @nodoc
@@ -691,13 +692,13 @@ class __$LoadSuccessCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? data = freezed,
+    Object? repoDetail = freezed,
     Object? hasStarredStatusChanged = freezed,
   }) {
     return _then(_LoadSuccess(
-      data == freezed
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
+      repoDetail == freezed
+          ? _value.repoDetail
+          : repoDetail // ignore: cast_nullable_to_non_nullable
               as Fresh<GithubRepoDetail?>,
       hasStarredStatusChanged: hasStarredStatusChanged == freezed
           ? _value.hasStarredStatusChanged
@@ -707,9 +708,9 @@ class __$LoadSuccessCopyWithImpl<$Res>
   }
 
   @override
-  $FreshCopyWith<GithubRepoDetail?, $Res> get data {
-    return $FreshCopyWith<GithubRepoDetail?, $Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value));
+  $FreshCopyWith<GithubRepoDetail?, $Res> get repoDetail {
+    return $FreshCopyWith<GithubRepoDetail?, $Res>(_value.repoDetail, (value) {
+      return _then(_value.copyWith(repoDetail: value));
     });
   }
 }
@@ -717,26 +718,27 @@ class __$LoadSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoadSuccess extends _LoadSuccess {
-  const _$_LoadSuccess(this.data, {this.hasStarredStatusChanged = false})
+  const _$_LoadSuccess(this.repoDetail, {this.hasStarredStatusChanged = false})
       : super._();
 
   @override
-  final Fresh<GithubRepoDetail?> data;
+  final Fresh<GithubRepoDetail?> repoDetail;
   @JsonKey(defaultValue: false)
   @override
   final bool hasStarredStatusChanged;
 
   @override
   String toString() {
-    return 'GithubRepoDetailState.loadSuccess(data: $data, hasStarredStatusChanged: $hasStarredStatusChanged)';
+    return 'GithubRepoDetailState.loadSuccess(repoDetail: $repoDetail, hasStarredStatusChanged: $hasStarredStatusChanged)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _LoadSuccess &&
-            (identical(other.data, data) ||
-                const DeepCollectionEquality().equals(other.data, data)) &&
+            (identical(other.repoDetail, repoDetail) ||
+                const DeepCollectionEquality()
+                    .equals(other.repoDetail, repoDetail)) &&
             (identical(
                     other.hasStarredStatusChanged, hasStarredStatusChanged) ||
                 const DeepCollectionEquality().equals(
@@ -746,7 +748,7 @@ class _$_LoadSuccess extends _LoadSuccess {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(data) ^
+      const DeepCollectionEquality().hash(repoDetail) ^
       const DeepCollectionEquality().hash(hasStarredStatusChanged);
 
   @JsonKey(ignore: true)
@@ -763,10 +765,10 @@ class _$_LoadSuccess extends _LoadSuccess {
             GithubFailure failure, bool hasStarredStatusChanged)
         loadFailure,
     required TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)
         loadSuccess,
   }) {
-    return loadSuccess(data, hasStarredStatusChanged);
+    return loadSuccess(repoDetail, hasStarredStatusChanged);
   }
 
   @override
@@ -777,10 +779,10 @@ class _$_LoadSuccess extends _LoadSuccess {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
   }) {
-    return loadSuccess?.call(data, hasStarredStatusChanged);
+    return loadSuccess?.call(repoDetail, hasStarredStatusChanged);
   }
 
   @override
@@ -791,12 +793,12 @@ class _$_LoadSuccess extends _LoadSuccess {
     TResult Function(GithubFailure failure, bool hasStarredStatusChanged)?
         loadFailure,
     TResult Function(
-            Fresh<GithubRepoDetail?> data, bool hasStarredStatusChanged)?
+            Fresh<GithubRepoDetail?> repoDetail, bool hasStarredStatusChanged)?
         loadSuccess,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
-      return loadSuccess(data, hasStarredStatusChanged);
+      return loadSuccess(repoDetail, hasStarredStatusChanged);
     }
     return orElse();
   }
@@ -840,11 +842,11 @@ class _$_LoadSuccess extends _LoadSuccess {
 }
 
 abstract class _LoadSuccess extends GithubRepoDetailState {
-  const factory _LoadSuccess(Fresh<GithubRepoDetail?> data,
+  const factory _LoadSuccess(Fresh<GithubRepoDetail?> repoDetail,
       {bool hasStarredStatusChanged}) = _$_LoadSuccess;
   const _LoadSuccess._() : super._();
 
-  Fresh<GithubRepoDetail?> get data => throw _privateConstructorUsedError;
+  Fresh<GithubRepoDetail?> get repoDetail => throw _privateConstructorUsedError;
   @override
   bool get hasStarredStatusChanged => throw _privateConstructorUsedError;
   @override
