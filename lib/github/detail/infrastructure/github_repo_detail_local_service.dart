@@ -1,4 +1,5 @@
 import 'package:sembast/sembast.dart';
+import 'package:sembast/timestamp.dart';
 import 'package:user_repo/github/core/infrastructure/sembast_database.dart';
 import 'package:user_repo/github/detail/infrastructure/github_repo_detail_dto.dart';
 
@@ -17,8 +18,15 @@ class GithubRepoDetailLocalService {
   }
 
   Future<GithubRepoDetailDTO?> getRepoDetail(String fullRepoName) async {
+    final record = _store.record(fullRepoName);
+
     final result =
-        await _store.record(fullRepoName).getSnapshot(_databaseClient.instance);
+        await _databaseClient.instance.transaction((transaction) async {
+      await record.update(transaction, {
+        GithubRepoDetailDTO.lastUsedAtFieldName: Timestamp.now(),
+      });
+      return record.getSnapshot(transaction);
+    });
 
     if (result == null) return null;
 

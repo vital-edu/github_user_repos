@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/timestamp.dart';
 import 'package:user_repo/github/detail/domain/github_repo_detail.dart';
 
 part 'github_repo_detail_dto.freezed.dart';
@@ -7,6 +8,9 @@ part 'github_repo_detail_dto.g.dart';
 
 @freezed
 class GithubRepoDetailDTO with _$GithubRepoDetailDTO {
+  static const fullNameFieldName = 'fullName';
+  static const lastUsedAtFieldName = 'lastUsedAt';
+
   const GithubRepoDetailDTO._();
   const factory GithubRepoDetailDTO({
     required String fullName,
@@ -32,7 +36,8 @@ class GithubRepoDetailDTO with _$GithubRepoDetailDTO {
 
   Map<String, dynamic> toSembast() {
     final json = toJson();
-    json.remove('fullName');
+    json.remove(fullNameFieldName);
+    json[lastUsedAtFieldName] = Timestamp.now();
     return json;
   }
 
@@ -40,7 +45,7 @@ class GithubRepoDetailDTO with _$GithubRepoDetailDTO {
     RecordSnapshot<String, Map<String, dynamic>> snapshot,
   ) {
     return GithubRepoDetailDTO.fromJson(<String, dynamic>{
-      'fullName': snapshot.key,
+      fullNameFieldName: snapshot.key,
       ...snapshot.value,
     });
   }
