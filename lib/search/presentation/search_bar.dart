@@ -30,6 +30,9 @@ class _SearchBarState extends ConsumerState<SearchBar> {
   void initState() {
     super.initState();
     _controller = FloatingSearchBarController();
+    Future.microtask(
+      () => ref.read(searchHistoryNotifierProvider.notifier).watchSearchTerms(),
+    );
   }
 
   @override
@@ -138,8 +141,9 @@ class _SearchBarState extends ConsumerState<SearchBar> {
         )
       ],
       onSubmitted: pushPageAndAddToHistory,
-      onQueryChanged:
-          ref.read(searchHistoryNotifierProvider.notifier).watchSearchTerms,
+      onQueryChanged: (query) => ref
+          .read(searchHistoryNotifierProvider.notifier)
+          .watchSearchTerms(filter: query),
     );
   }
 }

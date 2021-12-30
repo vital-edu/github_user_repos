@@ -6,7 +6,7 @@ class SearchHistoryNotifier extends StateNotifier<AsyncValue<List<String>>> {
 
   SearchHistoryNotifier(this._repository) : super(const AsyncValue.loading());
 
-  void watchSearchTerms(String filter) {
+  void watchSearchTerms({String? filter}) {
     _repository.watchSearchTerms(filter: filter).listen(
       (event) {
         state = AsyncValue.data(event);

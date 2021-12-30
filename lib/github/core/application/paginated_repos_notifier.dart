@@ -32,7 +32,7 @@ class PaginatedReposState with _$PaginatedReposState {
 }
 
 class PaginatedReposNotifier extends StateNotifier<PaginatedReposState> {
-  int _page = 0;
+  int _page = 1;
 
   PaginatedReposNotifier()
       : super(
@@ -40,6 +40,14 @@ class PaginatedReposNotifier extends StateNotifier<PaginatedReposState> {
             Fresh.yes([], isNextPageAvailable: true),
           ),
         );
+
+  @protected
+  void resetState() {
+    _page = 1;
+    state = PaginatedReposState.initial(
+      Fresh.yes([], isNextPageAvailable: true),
+    );
+  }
 
   @protected
   Future<void> getNextPage(RepositoryGetter repoGetter) async {

@@ -7,11 +7,23 @@ import 'package:user_repo/github/core/presentation/paginated_repos_list_view.dar
 import 'package:user_repo/github/shared/providers.dart';
 import 'package:user_repo/search/presentation/search_bar.dart';
 
-class StarredReposPage extends ConsumerWidget {
+class StarredReposPage extends StatefulHookConsumerWidget {
   const StarredReposPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _StarredReposPageState();
+}
+
+class _StarredReposPageState extends ConsumerState<StarredReposPage> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(starredReposNotifierProvider.notifier).getNextStarredReposPage();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SearchBar(
         body: PaginatedReposListView(
@@ -25,7 +37,8 @@ class StarredReposPage extends ConsumerWidget {
         title: 'Starred repositories',
         hint: 'Search all repositories...',
         onShouldNavigateToResultPage: (String searchedTerm) {
-          AutoRouter.of(context).push(SearchedReposRoute(query: searchedTerm));
+          AutoRouter.of(context)
+              .push(SearchedReposRoute(searchedTerm: searchedTerm));
         },
         onSignOutButtonPressed: () {
           ref.read(authNotifierProvider.notifier).signOut();

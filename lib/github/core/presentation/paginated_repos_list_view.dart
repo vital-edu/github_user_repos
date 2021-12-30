@@ -32,12 +32,6 @@ class _PaginatedReposListViewState
   bool hasAlreadyShownNoConnectionToast = false;
 
   @override
-  void initState() {
-    super.initState();
-    Future<void>.microtask(() => widget.getNextPage(ref));
-  }
-
-  @override
   Widget build(BuildContext context) {
     final state =
         ref.watch<PaginatedReposState>(widget.paginatedReposNotifierProvider);

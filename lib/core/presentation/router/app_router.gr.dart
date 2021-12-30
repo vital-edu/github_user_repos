@@ -37,7 +37,8 @@ class AppRouter extends _i6.RootStackRouter {
       final args = routeData.argsAs<SearchedReposRouteArgs>();
       return _i6.MaterialPageX<_i3.SearchedReposPage>(
           routeData: routeData,
-          child: _i3.SearchedReposPage(key: args.key, query: args.query));
+          child: _i3.SearchedReposPage(
+              key: args.key, searchedTerm: args.searchedTerm));
     },
     SignInRoute.name: (routeData) {
       return _i6.MaterialPageX<_i4.SignInPage>(
@@ -84,24 +85,24 @@ class StarredReposRoute extends _i6.PageRouteInfo<void> {
 /// generated route for
 /// [_i3.SearchedReposPage]
 class SearchedReposRoute extends _i6.PageRouteInfo<SearchedReposRouteArgs> {
-  SearchedReposRoute({_i7.Key? key, required String query})
+  SearchedReposRoute({_i7.Key? key, required String searchedTerm})
       : super(SearchedReposRoute.name,
             path: '/search',
-            args: SearchedReposRouteArgs(key: key, query: query));
+            args: SearchedReposRouteArgs(key: key, searchedTerm: searchedTerm));
 
   static const String name = 'SearchedReposRoute';
 }
 
 class SearchedReposRouteArgs {
-  const SearchedReposRouteArgs({this.key, required this.query});
+  const SearchedReposRouteArgs({this.key, required this.searchedTerm});
 
   final _i7.Key? key;
 
-  final String query;
+  final String searchedTerm;
 
   @override
   String toString() {
-    return 'SearchedReposRouteArgs{key: $key, query: $query}';
+    return 'SearchedReposRouteArgs{key: $key, searchedTerm: $searchedTerm}';
   }
 }
 
