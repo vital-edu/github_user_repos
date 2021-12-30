@@ -1,5 +1,6 @@
 import 'package:sembast/sembast.dart';
 import 'package:sembast/timestamp.dart';
+import 'package:user_repo/github/core/infrastructure/github_headers_cache.dart';
 import 'package:user_repo/github/core/infrastructure/sembast_database.dart';
 import 'package:user_repo/github/detail/infrastructure/github_repo_detail_dto.dart';
 
@@ -7,9 +8,10 @@ class GithubRepoDetailLocalService {
   static const _cacheSize = 50;
 
   final SembastDatabase _databaseClient;
+  final GithubHeadersCache _headersCache;
   final _store = stringMapStoreFactory.store('repoDetails');
 
-  GithubRepoDetailLocalService(this._databaseClient);
+  GithubRepoDetailLocalService(this._databaseClient, this._headersCache);
 
   Future<void> upsertRepoDetail(GithubRepoDetailDTO model) async {
     await _store
@@ -27,7 +29,15 @@ class GithubRepoDetailLocalService {
         ),
       );
 
-      _store.records(keys).delete(transaction);
+      for (final key in keys) {
+        await _store.record(key).delete(transaction);
+        await _headersCache.deleteHeaders(
+          Uri(
+            host: 'api.github.com',
+            path: '/repos/$key/readme',
+          ),
+        );
+      }
     });
   }
 
