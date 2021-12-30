@@ -24,11 +24,12 @@ class SearchBar extends ConsumerStatefulWidget {
 }
 
 class _SearchBarState extends ConsumerState<SearchBar> {
-  final _controller = FloatingSearchBarController();
+  late FloatingSearchBarController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = FloatingSearchBarController();
   }
 
   @override
@@ -39,6 +40,22 @@ class _SearchBarState extends ConsumerState<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    void pushPageAndAddToHistory(String searchedTerm) {
+      widget.onShouldNavigateToResultPage(searchedTerm);
+      ref
+          .read(searchHistoryNotifierProvider.notifier)
+          .addSearchTerm(searchedTerm);
+      _controller.close();
+    }
+
+    void pushPageAndPutFirstInHistory(String searchedTerm) {
+      widget.onShouldNavigateToResultPage(searchedTerm);
+      ref
+          .read(searchHistoryNotifierProvider.notifier)
+          .putSearchTermFirst(searchedTerm);
+      _controller.close();
+    }
+
     return FloatingSearchBar(
       controller: _controller,
       builder: (context, _) {
@@ -49,9 +66,28 @@ class _SearchBarState extends ConsumerState<SearchBar> {
           clipBehavior: Clip.hardEdge,
           color: Theme.of(context).cardColor,
           child: searchHistoryState.map(
-            data: (data) {
+            data: (history) {
+              if (history.value.isEmpty) {
+                if (_controller.query.isEmpty) {
+                  return Container(
+                    alignment: Alignment.center,
+                    height: 56,
+                    child: Text(
+                      'Start searching',
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                  );
+                }
+
+                return ListTile(
+                  title: Text(_controller.query),
+                  leading: const Icon(MdiIcons.magnify),
+                  onTap: () => pushPageAndAddToHistory(_controller.query),
+                );
+              }
+
               return Column(
-                children: data.value
+                children: history.value
                     .map(
                       (term) => ListTile(
                         title: Text(term),
@@ -62,13 +98,7 @@ class _SearchBarState extends ConsumerState<SearchBar> {
                               .read(searchHistoryNotifierProvider.notifier)
                               .deleteSearchTerm(term),
                         ),
-                        onTap: () {
-                          widget.onShouldNavigateToResultPage(term);
-                          ref
-                              .read(searchHistoryNotifierProvider.notifier)
-                              .putSearchTermFirst(term);
-                          _controller.close();
-                        },
+                        onTap: () => pushPageAndPutFirstInHistory(term),
                       ),
                     )
                     .toList(),
@@ -107,11 +137,7 @@ class _SearchBarState extends ConsumerState<SearchBar> {
           ),
         )
       ],
-      onSubmitted: (term) {
-        _controller.close();
-        ref.read(searchHistoryNotifierProvider.notifier).addSearchTerm(term);
-        widget.onShouldNavigateToResultPage(term);
-      },
+      onSubmitted: pushPageAndAddToHistory,
       onQueryChanged:
           ref.read(searchHistoryNotifierProvider.notifier).watchSearchTerms,
     );
