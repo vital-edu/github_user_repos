@@ -13,21 +13,21 @@ class Fresh<T> with _$Fresh<T> {
 
   factory Fresh.yes(
     T entity, {
-    required bool isNextPageAvailable,
+    bool? isNextPageAvailable,
   }) =>
       Fresh(
         entity: entity,
         isFresh: true,
-        isNextPageAvailable: isNextPageAvailable,
+        isNextPageAvailable: isNextPageAvailable ?? false,
       );
 
   factory Fresh.no(
     T entity, {
-    required bool isNextPageAvailable,
+    bool? isNextPageAvailable,
   }) =>
       Fresh(
         entity: entity,
         isFresh: false,
-        isNextPageAvailable: isNextPageAvailable,
+        isNextPageAvailable: isNextPageAvailable ?? false,
       );
 }
