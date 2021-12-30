@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -24,6 +27,7 @@ class SearchBar extends ConsumerStatefulWidget {
 }
 
 class _SearchBarState extends ConsumerState<SearchBar> {
+  static const _splashRadius = 20.0;
   late FloatingSearchBarController _controller;
 
   @override
@@ -128,6 +132,19 @@ class _SearchBarState extends ConsumerState<SearchBar> {
         ],
       ),
       hint: widget.hint,
+      automaticallyImplyBackButton: false,
+      leadingActions: [
+        if (AutoRouter.of(context).canPopSelfOrChildren)
+          FloatingSearchBarAction(
+            child: IconButton(
+              icon: (Platform.isIOS || Platform.isMacOS)
+                  ? const Icon(Icons.arrow_back_ios_new)
+                  : const Icon(Icons.arrow_back),
+              onPressed: () => AutoRouter.of(context).pop(),
+              splashRadius: _splashRadius,
+            ),
+          )
+      ],
       actions: [
         FloatingSearchBarAction.searchToClear(
           showIfClosed: false,
@@ -136,7 +153,7 @@ class _SearchBarState extends ConsumerState<SearchBar> {
           child: IconButton(
             icon: const Icon(MdiIcons.logoutVariant),
             onPressed: widget.onSignOutButtonPressed,
-            splashRadius: 20,
+            splashRadius: _splashRadius,
           ),
         )
       ],
