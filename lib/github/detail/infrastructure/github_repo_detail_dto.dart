@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sembast/sembast.dart';
 import 'package:user_repo/github/detail/domain/github_repo_detail.dart';
 
 part 'github_repo_detail_dto.freezed.dart';
@@ -28,4 +29,19 @@ class GithubRepoDetailDTO with _$GithubRepoDetailDTO {
         html: html,
         starred: starred,
       );
+
+  Map<String, dynamic> toSembast() {
+    final json = toJson();
+    json.remove('fullname');
+    return json;
+  }
+
+  factory GithubRepoDetailDTO.fromSembast(
+    RecordSnapshot<String, Map<String, dynamic>> snapshot,
+  ) {
+    return GithubRepoDetailDTO.fromJson(<String, dynamic>{
+      'fullname': snapshot.key,
+      ...snapshot.value,
+    });
+  }
 }
