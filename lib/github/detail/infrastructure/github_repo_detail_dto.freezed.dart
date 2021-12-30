@@ -22,9 +22,9 @@ class _$GithubRepoDetailDTOTearOff {
   const _$GithubRepoDetailDTOTearOff();
 
   _GithubRepoDetailDTO call(
-      {required String fullname, required String html, required bool starred}) {
+      {required String fullName, required String html, required bool starred}) {
     return _GithubRepoDetailDTO(
-      fullname: fullname,
+      fullName: fullName,
       html: html,
       starred: starred,
     );
@@ -40,7 +40,7 @@ const $GithubRepoDetailDTO = _$GithubRepoDetailDTOTearOff();
 
 /// @nodoc
 mixin _$GithubRepoDetailDTO {
-  String get fullname => throw _privateConstructorUsedError;
+  String get fullName => throw _privateConstructorUsedError;
   String get html => throw _privateConstructorUsedError;
   bool get starred => throw _privateConstructorUsedError;
 
@@ -55,7 +55,7 @@ abstract class $GithubRepoDetailDTOCopyWith<$Res> {
   factory $GithubRepoDetailDTOCopyWith(
           GithubRepoDetailDTO value, $Res Function(GithubRepoDetailDTO) then) =
       _$GithubRepoDetailDTOCopyWithImpl<$Res>;
-  $Res call({String fullname, String html, bool starred});
+  $Res call({String fullName, String html, bool starred});
 }
 
 /// @nodoc
@@ -69,14 +69,14 @@ class _$GithubRepoDetailDTOCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? fullname = freezed,
+    Object? fullName = freezed,
     Object? html = freezed,
     Object? starred = freezed,
   }) {
     return _then(_value.copyWith(
-      fullname: fullname == freezed
-          ? _value.fullname
-          : fullname // ignore: cast_nullable_to_non_nullable
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       html: html == freezed
           ? _value.html
@@ -97,7 +97,7 @@ abstract class _$GithubRepoDetailDTOCopyWith<$Res>
           $Res Function(_GithubRepoDetailDTO) then) =
       __$GithubRepoDetailDTOCopyWithImpl<$Res>;
   @override
-  $Res call({String fullname, String html, bool starred});
+  $Res call({String fullName, String html, bool starred});
 }
 
 /// @nodoc
@@ -113,14 +113,14 @@ class __$GithubRepoDetailDTOCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? fullname = freezed,
+    Object? fullName = freezed,
     Object? html = freezed,
     Object? starred = freezed,
   }) {
     return _then(_GithubRepoDetailDTO(
-      fullname: fullname == freezed
-          ? _value.fullname
-          : fullname // ignore: cast_nullable_to_non_nullable
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       html: html == freezed
           ? _value.html
@@ -138,14 +138,14 @@ class __$GithubRepoDetailDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_GithubRepoDetailDTO extends _GithubRepoDetailDTO {
   const _$_GithubRepoDetailDTO(
-      {required this.fullname, required this.html, required this.starred})
+      {required this.fullName, required this.html, required this.starred})
       : super._();
 
   factory _$_GithubRepoDetailDTO.fromJson(Map<String, dynamic> json) =>
       _$$_GithubRepoDetailDTOFromJson(json);
 
   @override
-  final String fullname;
+  final String fullName;
   @override
   final String html;
   @override
@@ -153,16 +153,16 @@ class _$_GithubRepoDetailDTO extends _GithubRepoDetailDTO {
 
   @override
   String toString() {
-    return 'GithubRepoDetailDTO(fullname: $fullname, html: $html, starred: $starred)';
+    return 'GithubRepoDetailDTO(fullName: $fullName, html: $html, starred: $starred)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _GithubRepoDetailDTO &&
-            (identical(other.fullname, fullname) ||
+            (identical(other.fullName, fullName) ||
                 const DeepCollectionEquality()
-                    .equals(other.fullname, fullname)) &&
+                    .equals(other.fullName, fullName)) &&
             (identical(other.html, html) ||
                 const DeepCollectionEquality().equals(other.html, html)) &&
             (identical(other.starred, starred) ||
@@ -172,7 +172,7 @@ class _$_GithubRepoDetailDTO extends _GithubRepoDetailDTO {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(fullname) ^
+      const DeepCollectionEquality().hash(fullName) ^
       const DeepCollectionEquality().hash(html) ^
       const DeepCollectionEquality().hash(starred);
 
@@ -190,7 +190,7 @@ class _$_GithubRepoDetailDTO extends _GithubRepoDetailDTO {
 
 abstract class _GithubRepoDetailDTO extends GithubRepoDetailDTO {
   const factory _GithubRepoDetailDTO(
-      {required String fullname,
+      {required String fullName,
       required String html,
       required bool starred}) = _$_GithubRepoDetailDTO;
   const _GithubRepoDetailDTO._() : super._();
@@ -199,7 +199,7 @@ abstract class _GithubRepoDetailDTO extends GithubRepoDetailDTO {
       _$_GithubRepoDetailDTO.fromJson;
 
   @override
-  String get fullname => throw _privateConstructorUsedError;
+  String get fullName => throw _privateConstructorUsedError;
   @override
   String get html => throw _privateConstructorUsedError;
   @override

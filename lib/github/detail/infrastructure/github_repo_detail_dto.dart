@@ -9,7 +9,7 @@ part 'github_repo_detail_dto.g.dart';
 class GithubRepoDetailDTO with _$GithubRepoDetailDTO {
   const GithubRepoDetailDTO._();
   const factory GithubRepoDetailDTO({
-    required String fullname,
+    required String fullName,
     required String html,
     required bool starred,
   }) = _GithubRepoDetailDTO;
@@ -19,20 +19,20 @@ class GithubRepoDetailDTO with _$GithubRepoDetailDTO {
 
   factory GithubRepoDetailDTO.fromDomain(GithubRepoDetail _) =>
       GithubRepoDetailDTO(
-        fullname: _.fullname,
+        fullName: _.fullName,
         html: _.html,
         starred: _.starred,
       );
 
   GithubRepoDetail toDomain() => GithubRepoDetail(
-        fullname: fullname,
+        fullName: fullName,
         html: html,
         starred: starred,
       );
 
   Map<String, dynamic> toSembast() {
     final json = toJson();
-    json.remove('fullname');
+    json.remove('fullName');
     return json;
   }
 
@@ -40,7 +40,7 @@ class GithubRepoDetailDTO with _$GithubRepoDetailDTO {
     RecordSnapshot<String, Map<String, dynamic>> snapshot,
   ) {
     return GithubRepoDetailDTO.fromJson(<String, dynamic>{
-      'fullname': snapshot.key,
+      'fullName': snapshot.key,
       ...snapshot.value,
     });
   }

@@ -12,7 +12,7 @@ class GithubRepoDetailLocalService {
 
   Future<void> upsertRepoDetail(GithubRepoDetailDTO model) async {
     await _store
-        .record(model.fullname)
+        .record(model.fullName)
         .put(_databaseClient.instance, model.toSembast());
   }
 

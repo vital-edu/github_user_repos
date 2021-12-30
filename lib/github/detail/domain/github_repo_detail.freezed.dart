@@ -18,9 +18,9 @@ class _$GithubRepoDetailTearOff {
   const _$GithubRepoDetailTearOff();
 
   _GithubRepoDetail call(
-      {required String fullname, required String html, required bool starred}) {
+      {required String fullName, required String html, required bool starred}) {
     return _GithubRepoDetail(
-      fullname: fullname,
+      fullName: fullName,
       html: html,
       starred: starred,
     );
@@ -32,7 +32,7 @@ const $GithubRepoDetail = _$GithubRepoDetailTearOff();
 
 /// @nodoc
 mixin _$GithubRepoDetail {
-  String get fullname => throw _privateConstructorUsedError;
+  String get fullName => throw _privateConstructorUsedError;
   String get html => throw _privateConstructorUsedError;
   bool get starred => throw _privateConstructorUsedError;
 
@@ -46,7 +46,7 @@ abstract class $GithubRepoDetailCopyWith<$Res> {
   factory $GithubRepoDetailCopyWith(
           GithubRepoDetail value, $Res Function(GithubRepoDetail) then) =
       _$GithubRepoDetailCopyWithImpl<$Res>;
-  $Res call({String fullname, String html, bool starred});
+  $Res call({String fullName, String html, bool starred});
 }
 
 /// @nodoc
@@ -60,14 +60,14 @@ class _$GithubRepoDetailCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? fullname = freezed,
+    Object? fullName = freezed,
     Object? html = freezed,
     Object? starred = freezed,
   }) {
     return _then(_value.copyWith(
-      fullname: fullname == freezed
-          ? _value.fullname
-          : fullname // ignore: cast_nullable_to_non_nullable
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       html: html == freezed
           ? _value.html
@@ -88,7 +88,7 @@ abstract class _$GithubRepoDetailCopyWith<$Res>
           _GithubRepoDetail value, $Res Function(_GithubRepoDetail) then) =
       __$GithubRepoDetailCopyWithImpl<$Res>;
   @override
-  $Res call({String fullname, String html, bool starred});
+  $Res call({String fullName, String html, bool starred});
 }
 
 /// @nodoc
@@ -104,14 +104,14 @@ class __$GithubRepoDetailCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? fullname = freezed,
+    Object? fullName = freezed,
     Object? html = freezed,
     Object? starred = freezed,
   }) {
     return _then(_GithubRepoDetail(
-      fullname: fullname == freezed
-          ? _value.fullname
-          : fullname // ignore: cast_nullable_to_non_nullable
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       html: html == freezed
           ? _value.html
@@ -129,11 +129,11 @@ class __$GithubRepoDetailCopyWithImpl<$Res>
 
 class _$_GithubRepoDetail extends _GithubRepoDetail {
   const _$_GithubRepoDetail(
-      {required this.fullname, required this.html, required this.starred})
+      {required this.fullName, required this.html, required this.starred})
       : super._();
 
   @override
-  final String fullname;
+  final String fullName;
   @override
   final String html;
   @override
@@ -141,16 +141,16 @@ class _$_GithubRepoDetail extends _GithubRepoDetail {
 
   @override
   String toString() {
-    return 'GithubRepoDetail(fullname: $fullname, html: $html, starred: $starred)';
+    return 'GithubRepoDetail(fullName: $fullName, html: $html, starred: $starred)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _GithubRepoDetail &&
-            (identical(other.fullname, fullname) ||
+            (identical(other.fullName, fullName) ||
                 const DeepCollectionEquality()
-                    .equals(other.fullname, fullname)) &&
+                    .equals(other.fullName, fullName)) &&
             (identical(other.html, html) ||
                 const DeepCollectionEquality().equals(other.html, html)) &&
             (identical(other.starred, starred) ||
@@ -160,7 +160,7 @@ class _$_GithubRepoDetail extends _GithubRepoDetail {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(fullname) ^
+      const DeepCollectionEquality().hash(fullName) ^
       const DeepCollectionEquality().hash(html) ^
       const DeepCollectionEquality().hash(starred);
 
@@ -172,13 +172,13 @@ class _$_GithubRepoDetail extends _GithubRepoDetail {
 
 abstract class _GithubRepoDetail extends GithubRepoDetail {
   const factory _GithubRepoDetail(
-      {required String fullname,
+      {required String fullName,
       required String html,
       required bool starred}) = _$_GithubRepoDetail;
   const _GithubRepoDetail._() : super._();
 
   @override
-  String get fullname => throw _privateConstructorUsedError;
+  String get fullName => throw _privateConstructorUsedError;
   @override
   String get html => throw _privateConstructorUsedError;
   @override

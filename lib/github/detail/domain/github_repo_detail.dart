@@ -6,7 +6,7 @@ part 'github_repo_detail.freezed.dart';
 class GithubRepoDetail with _$GithubRepoDetail {
   const GithubRepoDetail._();
   const factory GithubRepoDetail({
-    required String fullname,
+    required String fullName,
     required String html,
     required bool starred,
   }) = _GithubRepoDetail;
