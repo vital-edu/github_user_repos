@@ -15,6 +15,20 @@ class GithubRepoDetailLocalService {
     await _store
         .record(model.fullName)
         .put(_databaseClient.instance, model.toSembast());
+
+    await _databaseClient.instance.transaction((transaction) async {
+      final keys = await _store.findKeys(
+        transaction,
+        finder: Finder(
+          sortOrders: [
+            SortOrder(GithubRepoDetailDTO.lastUsedAtFieldName, false),
+          ],
+          offset: _cacheSize,
+        ),
+      );
+
+      _store.records(keys).delete(transaction);
+    });
   }
 
   Future<GithubRepoDetailDTO?> getRepoDetail(String fullRepoName) async {
