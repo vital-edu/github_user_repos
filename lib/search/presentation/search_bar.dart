@@ -140,7 +140,7 @@ class _SearchBarState extends ConsumerState<SearchBar> {
               icon: (Platform.isIOS || Platform.isMacOS)
                   ? const Icon(Icons.arrow_back_ios_new)
                   : const Icon(Icons.arrow_back),
-              onPressed: () => AutoRouter.of(context).pop(),
+              onPressed: () async => AutoRouter.of(context, watch: true).pop(),
               splashRadius: _splashRadius,
             ),
           )
