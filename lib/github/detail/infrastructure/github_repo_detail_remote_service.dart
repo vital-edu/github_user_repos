@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:user_repo/core/infrastructure/extensions/dio_extensions.dart';
 import 'package:user_repo/core/infrastructure/network_exceptions.dart';
 import 'package:user_repo/core/infrastructure/remote_response.dart';
@@ -74,6 +75,37 @@ class GithubRepoDetailRemoteService {
       } else {
         RestApiException(response.statusCode);
       }
+    } on DioError catch (error) {
+      if (error.isConnectionError) {
+        return null;
+      } else if (error.response != null) {
+        throw RestApiException(error.response?.statusCode);
+      }
+
+      rethrow;
+    }
+  }
+
+  /// Returns `null` if there is no internet connection.
+  Future<Unit?> switchStarredStatus(
+    String fullRepoName, {
+    required bool isCurrentStarred,
+  }) async {
+    final requestUri = Uri(
+      host: 'api.github.com',
+      path: '/user/starred/$fullRepoName',
+    );
+
+    try {
+      final response = await (isCurrentStarred
+          ? _dio.deleteUri<dynamic>(requestUri)
+          : _dio.putUri<dynamic>(requestUri));
+
+      if (response.statusCode != 204) {
+        throw RestApiException(response.statusCode);
+      }
+
+      return unit;
     } on DioError catch (error) {
       if (error.isConnectionError) {
         return null;
