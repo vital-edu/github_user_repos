@@ -2,6 +2,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:user_repo/core/shared/providers.dart';
 import 'package:user_repo/github/core/application/paginated_repos_notifier.dart';
 import 'package:user_repo/github/core/infrastructure/github_headers_cache.dart';
+import 'package:user_repo/github/detail/application/github_repo_detail_notifier.dart';
+import 'package:user_repo/github/detail/infrastructure/github_repo_detail_local_service.dart';
+import 'package:user_repo/github/detail/infrastructure/github_repo_detail_remote_service.dart';
+import 'package:user_repo/github/detail/infrastructure/github_repo_detail_repository.dart';
 import 'package:user_repo/github/repos/searched_repos/application/searched_repos_notifier.dart';
 import 'package:user_repo/github/repos/searched_repos/infrastructure/searched_repos_remote_service.dart';
 import 'package:user_repo/github/repos/searched_repos/infrastructure/searched_repos_repository.dart';
@@ -53,4 +57,32 @@ final searchedReposRepositoryProvider = Provider(
 final searchedReposNotifierProvider = StateNotifierProvider.autoDispose<
     SearchedReposNotifier, PaginatedReposState>(
   (ref) => SearchedReposNotifier(ref.watch(searchedReposRepositoryProvider)),
+);
+
+final repoDetailRemoteServiceProvider = Provider(
+  (ref) => GithubRepoDetailRemoteService(
+    ref.watch(dioProvider),
+    ref.watch(githubHeadersCacheProvider),
+  ),
+);
+
+final repoDetailLocalServiceProvider = Provider(
+  (ref) => GithubRepoDetailLocalService(
+    ref.watch(sembastDatabaseProvider),
+    ref.watch(githubHeadersCacheProvider),
+  ),
+);
+
+final repoDetailRepositoryProvider = Provider(
+  (ref) => GithubRepoDetailRepository(
+    ref.watch(repoDetailLocalServiceProvider),
+    ref.watch(repoDetailRemoteServiceProvider),
+  ),
+);
+
+final repoDetailNotifierProvider = StateNotifierProvider.autoDispose<
+    GithubRepoDetailNotifier, GithubRepoDetailState>(
+  (ref) => GithubRepoDetailNotifier(
+    ref.watch(repoDetailRepositoryProvider),
+  ),
 );
