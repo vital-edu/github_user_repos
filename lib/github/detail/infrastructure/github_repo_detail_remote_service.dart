@@ -15,6 +15,7 @@ class GithubRepoDetailRemoteService {
   Future<RemoteResponse<String>> getReadmeHtml(String fullRepoName) async {
     try {
       final requestUri = Uri(
+        scheme: 'https',
         host: 'api.github.com',
         path: '/repos/$fullRepoName/readme',
       );
@@ -54,6 +55,7 @@ class GithubRepoDetailRemoteService {
   /// Returns `null` if there is no internet connection.
   Future<bool?> getStarredStatus(String fullRepoName) async {
     final requestUri = Uri(
+      scheme: 'https',
       host: 'api.github.com',
       path: '/user/starred/$fullRepoName',
     );
@@ -92,6 +94,7 @@ class GithubRepoDetailRemoteService {
     required bool isCurrentStarred,
   }) async {
     final requestUri = Uri(
+      scheme: 'https',
       host: 'api.github.com',
       path: '/user/starred/$fullRepoName',
     );
